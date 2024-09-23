@@ -1,0 +1,48 @@
+<app-header [title]="breed?.name"></app-header>
+
+<ion-content [fullscreen]="true">
+    <section class="info-breed" *ngIf="breed">
+        <ion-row>
+            <ion-col size-xs="12" size-sm="12" size-md="5" size-lg="5" size-xl="5" class="col-image">
+                <img class="image-cat" [src]="'https://cdn2.thecatapi.com/images/' + breed.reference_image_id + '.jpg'"
+                    (error)="handleImageError($event)" [alt]="'cat breed ' + breed.name "
+                    [title]="'cat breed ' + breed.name" fill>
+            </ion-col>
+
+            <ion-col size-xs="12" size-sm="12" size-md="7" size-lg="7" size-xl="7">
+                <section class="info-detail">
+                    <div class="shadow-box"></div>
+
+                    <h1 class="title-breed">{{breed.name}}</h1>
+
+                    <p class="description-breed">{{breed.description}}</p>
+
+                    <div class="contain-cards">
+                        <section class="card-info" *ngFor="let card of breed.cardsInfo">
+                            <p class="contain-title">
+                                <ion-icon [name]="card.icon"></ion-icon>
+                                <span>{{card.name}}</span>
+                            </p>
+
+                            <span class="value">{{card.value}}</span>
+                        </section>
+                    </div>
+
+                    <div class="contain-features">
+                        <div class="feature" *ngFor="let feature of breed.features">
+                            <p class="title-feature">
+                                <span class="name">{{feature.name}}: </span>
+                                <span>{{feature.value}}/5</span>
+                            </p>
+
+                            <section class="items">
+                                <div class="item" *ngFor="let item of [0,1,2,3,4]; index as index"
+                                    [ngClass]="{'active': feature.value > index && activeAnimation}"></div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </ion-col>
+        </ion-row>
+    </section>
+</ion-content>

@@ -1,0 +1,37 @@
+<section class="list-breeds">
+    <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="4" size-xl="4"
+            *ngFor="let breed of catbreeds; trackBy:trackItems">
+            <div class="card-breed" (click)="goToDetail(breed.id)">
+                <span class="arrow-go">
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </span>
+
+                <img class="image" [src]="'https://cdn2.thecatapi.com/images/' + breed.reference_image_id + '.jpg'"
+                    (error)="handleImageError($event)" [alt]="'cat breed ' + breed.name "
+                    [title]="'cat breed ' + breed.name" fill>
+
+                <section class="info-breed">
+                    <h6 class="title">{{breed.name}}</h6>
+
+                    <span class="text-detail">{{breed.origin}}</span>
+
+                    <p class="contain-text margin-top">
+                        <span class="text-detail">Intelligence: </span>
+                        <span class="text-detail medium">{{breed.intelligence}}/5</span>
+                    </p>
+
+                    <p class="contain-text">
+                        <span class="text-detail">Energy level: </span>
+                        <span class="text-detail medium">{{breed.energy_level}}/5</span>
+                    </p>
+                </section>
+            </div>
+        </ion-col>
+
+        <ion-infinite-scroll threshold="20%" (ionInfinite)="loadMore($event)">
+            <ion-infinite-scroll-content loadingText="loading breeds" color="tertiary"
+                loadingSpinner="circles"></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-row>
+</section>
